@@ -12,7 +12,7 @@ public class Main {
     // Example 1 for printing number of quakes
     int printedNum = 5;
     System.out.println("These are examples for " + printedNum + " different quakes:");
-    client.printQuakes(quakesList, 5);
+    client.printQuakes(quakesList, printedNum);
 
     // Example 2 for filtering quakes near to Durham, NC
     Location loc = new Location(35.9886, -78.9072);
