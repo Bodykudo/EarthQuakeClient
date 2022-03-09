@@ -1,4 +1,3 @@
-# EarthQuakeClient
 # EarthQuakeClient: Study quakes easily!
 
 EarthQuakeClient is a tool to do basic operations on a set of quakes
