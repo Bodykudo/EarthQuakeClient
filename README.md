@@ -25,17 +25,18 @@ To return an ArrayList of filtered quakes:
 
 Where quakeData is an ArrayList of quakes, filter is the used filter. Current filters are:
 
-`MagnitudeFilter(double minValue, double maxValue, String filterName)`
+```Java
+MagnitudeFilter(double minValue, double maxValue, String filterName)
 
-`MinMagFilter(double minValue, String filterName)`
+MinMagFilter(double minValue, String filterName)
 
-`DepthFilter(double minValue, double maxValue, String filterName)`
+DepthFilter(double minValue, double maxValue, String filterName)
 
-`DistanceFilter(Location location, double maxValue, String filterName)`
+DistanceFilter(Location location, double maxValue, String filterName)
 
-"ALl VALUES ARE IN METERS"
+// ALl VALUES ARE IN METERS
 
-`PhraseFilter(String type, String phrase, String filterName)` Type can be "starts", "ends", "any"
+PhraseFilter(String type, String phrase, String filterName) // Type can be "starts", "ends", "any"```
 
 An example for calling DistanceFilter:
 
