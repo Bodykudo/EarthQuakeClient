@@ -24,7 +24,6 @@ To return an ArrayList of filtered quakes:
 `client.filterQuakes(ArrayList<QuakeEntry> quakeData, Filter filter)`
 
 Where quakeData is an ArrayList of quakes, filter is the used filter. Current filters are:
-
 ```Java
 MagnitudeFilter(double minValue, double maxValue, String filterName)
 
@@ -36,69 +35,61 @@ DistanceFilter(Location location, double maxValue, String filterName)
 
 // ALl VALUES ARE IN METERS
 
-PhraseFilter(String type, String phrase, String filterName) // Type can be "starts", "ends", "any"```
+PhraseFilter(String type, String phrase, String filterName) // Type can be "starts", "ends", "any"
+```
 
 An example for calling DistanceFilter:
+```Java
+Location loc = new Location(35.9886, -78.9072)
 
-`Location loc = new Location(35.9886, -78.9072)`
+ArrayList<QuakeEntry> quakesList = client.getQuakes();
 
-`ArrayList<QuakeEntry> quakesList = client.getQuakes();`
+ArrayList<QuakeEntry> filteredList = client.filterQuakes(quakesList, new DistanceFilter(loc, 1000000, "ClosestQuakes"));
 
-`ArrayList<QuakeEntry> filteredList = client.filterQuakes(quakesList, new DistanceFilter(loc, 1000000, "ClosestQuakes"));`
-
+```
 
 `MatchAllFilter()` can be used to have more than one filter
 
 `MatchAllFilter.add(Filter filter)`
 
 An example for using MatchAllFilter:
+```Java
+ArrayList<QuakeEntry> quakesList = client.getQuakes();
+MatchAllFilter multiFilters = new MatchAllFilter();
+multiFilters.addFilter(new MinMagFilter(3.0, "Magnitude"));
+multiFilters.addFilter(new PhraseFilter("ends", "Japan", "Phrase"));
+ArrayList<QuakeEntry> filteredList = client.filterQuakes(quakesList, multiFilters);
+```
 
-`ArrayList<QuakeEntry> quakesList = client.getQuakes();`
-
-`MatchAllFilter multiFilters = new MatchAllFilter();`
-
-`multiFilters.addFilter(new MinMagFilter(3.0, "Magnitude"));`
-
-`multiFilters.addFilter(new PhraseFilter("ends", "Japan", "Phrase"));`
-
-`ArrayList<QuakeEntry> filteredList = client.filterQuakes(quakesList, multiFilters);`
-
-To sort an ArrayList of quakes:
-
+To sort an ArrayList of quakes: 
 `Collections.sort(ArrayList<QuakeEntry> quakeData, Comparator compare)`
 
 Where default Comparator is to sort by magnitude and depth in an ascending order, current comparators are:
-
-`MagnitudeComparator(boolean ascending);`
-
-`DistanceComparator(Location location, boolean ascending);`
-
-`TitleAndDepthComparator(boolean ascending);`
-
-`TitleLastAndMagnitudeComparator(boolean ascending);`
+```Java
+MagnitudeComparator(boolean ascending);
+DistanceComparator(Location location, boolean ascending);
+TitleAndDepthComparator(boolean ascending);
+TitleLastAndMagnitudeComparator(boolean ascending);
+```
 
 An example for sorting quakes:
-
-`ArrayList<QuakeEntry> quakesList = client.getQuakes();`
-
-`Location loc = new Location(35.9886, -78.9072)`
-
-`Collections.sort(quakesList, new DistanceComparator(loc, true));`
+```Java
+ArrayList<QuakeEntry> quakesList = client.getQuakes();
+Location loc = new Location(35.9886, -78.9072)
+Collections.sort(quakesList, new DistanceComparator(loc, true));
+```
 
 Or you can use built in methods:
-
-`client.sortDefault(ArrayList<QuakeEntry> quakeData);` This sorts according to magnitude and depth in an ascending order
-
-`client.sortByMagnitude(ArrayList<QuakeEntry> quakeData, boolean ascending);`
-
-`client.sortByDistance(ArrayList<QuakeEntry> quakeData, Location loc, boolean ascending);`
-
-`client.sortByTitleAndDepth(ArrayList<QuakeEntry> quakeData, boolean ascending);`
-
-`client.sortByLastWordInTitleThenByMagnitude(ArrayList<QuakeEntry> quakeData, boolean ascending)`
+```Java
+client.sortDefault(ArrayList<QuakeEntry> quakeData); //This sorts according to magnitude and depth in an ascending order
+client.sortByMagnitude(ArrayList<QuakeEntry> quakeData, boolean ascending);
+client.sortByDistance(ArrayList<QuakeEntry> quakeData, Location loc, boolean ascending);
+client.sortByTitleAndDepth(ArrayList<QuakeEntry> quakeData, boolean ascending);
+client.sortByLastWordInTitleThenByMagnitude(ArrayList<QuakeEntry> quakeData, boolean ascending)
+```
 
 An example:
-
-`ArrayList<QuakeEntry> quakesList = client.getQuakes();`
-
-`client.sortByTitleAndDepth(quakesList, false);`
+```Java
+ArrayList<QuakeEntry> quakesList = client.getQuakes();
+client.sortByTitleAndDepth(quakesList, false);
+```
